@@ -27,14 +27,14 @@ class B2 {
 	virtual void pvf() = 0; //tisztan virtualis
 };
 
-class D21 : public D2{
+class D21 : public B2{
 	public:
 	string s;
 	void pvf() {cout<< s <<endl;}
 };
 
 
-class D22 : public D1 {
+class D22 : public B2 {
 	public:
 	int n;
 	void pvf() {cout << n <<endl;}
@@ -91,3 +91,4 @@ int main(){
 	
 
 }
+
