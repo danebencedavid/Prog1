@@ -42,7 +42,7 @@ Function func1{one,range_min,range_max,p2,n_points,x_scale,y_scale};
 Function func2{slope,range_min,range_max,p2,n_points,x_scale,y_scale};
 Function func3{square,range_min,range_max,p2,n_points,x_scale,y_scale};
 Function func4{cos,range_min,range_max,p2,n_points,x_scale,y_scale};
-	func4.set_color(Color::blue)
+	func4.set_color(Color::blue);
 Function func5 {sloping_cos,range_min,range_max,p2,n_points,x_scale,y_scale};
 
 
