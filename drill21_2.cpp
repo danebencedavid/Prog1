@@ -4,85 +4,79 @@
 #include<numeric>
 #include<stdexcept>
 
-void read_map(std::map<std::string,int>&m)
+void read(std::map<std::string, int>& m)
 {
-	std::string s;
-	int i=0;
-	
-	while(m.size()<10)
-	{
-		std::cin>>s>>i;
-		//m[s]=i;
-		m.insert(std::make_pair(s,i));
-	}
+    std::string s;
+    int i = 0;
+
+    while (m.size() < 10){
+        std::cin >> s >> i;
+        m.insert(std::make_pair(s,i));
+    }
 }
 
-template<typename K,typename V>
+
+
+
+template<typename K, typename V>
 void print(const std::map<K,V>& m)
 {
-	int sum=0;
-	for(std::pair<K,V> a : m)
-	//for(auto& a : m)
-	{
-		std::cout<<a.first<<'\t'<<a.second<<std::endl;
-		sum += a.second;
-	}
-	std::cout<<"sum: "<<sum<<std::endl;
-}
-int main()
-try
-{
-	std::map<std::string, int>msi;
-	msi["a"]=1;
-	msi["b"]=2;
-	msi["abc"]=45;
-	msi["x"]=23;
-	msi["g"]=41;
-	msi["wert"]=92;
-	msi["j"]=30;
-	msi["po"]=11;
-	msi["px"]=67;
-	msi["ac"]=4;
 
-	print(msi);
-	
-	msi.erase("a");
-	std::cout<<"a elem törlése után: "<<std::endl;
-	print(msi);
-	
-	msi.erase(msi.begin(),msi.end());
-	std::cout<<"a teljes törlés után: "<<std::endl;
-	print(msi);
-	
-	std::cout<<"10 név érték pár megadása: "<<std::endl;
-	read_map(msi);
-	std::cout<<"msi: "<<std::endl;
-	print(msi);
-	
-	/*int total = std::accumulate(msi.begin(),msi.end(),0[](int sum,const std::pair<std::string,int>&p)
-	{return sum+=p.second;}
-	);
-	
-	total=std::accumulate(msi.begin(),msi.end(),0);
-	int total2=0;
-	for(std::pair<std::string,int> a : msi)
-	{
-		total2+=a.second;
-	}
-	std::cout<<"Sum of ints: "<<total<<" "<<total2<<std:endl;*/ 		//idk whats this
-	
-	std::map<int,std::string>mis;
-	for(std::pair<std::string,int> a : msi)				
+    for(std::pair<K,V>a: m)
+    {
+        std::cout << a.first << '\t' << a.second << std::endl;
+
+    }
+
+}
+template<typename K, typename V>
+void sum (const std::map<K,V>& m){int osszeg;
+for (std::pair<K,V> a : m)
+{
+    osszeg = osszeg + a.second;
+}
+    std::cout << "Osszeg: "<< osszeg << std::endl;
+}
+
+int main()
+
+try{
+    std::map<std::string,int> msi;
+
+    msi["a"]=1;
+    msi["b"]=2;
+    msi["c"]=4;
+    msi["d"]=44;
+    msi["e"]=31;
+    msi["f"]=86;
+    msi["g"]=57;
+    msi["h"]=53;
+    msi["i"]=73;
+    msi["j"]=33;
+
+    print (msi);
+    sum(msi);
+
+    std::cout << "Elements of map after erase: \n" << std::endl;
+
+    msi.erase(msi.begin(),msi.end());
+
+    print (msi);
+
+    std::cout << "Enter 10 pairs: \n" << std::endl;
+    read(msi);
+
+    print(msi);
+
+    std::map<int, std::string> mis;
+    for(auto a : msi)
 	{
 		mis[a.second]=a.first;
-		//mis.insert(std::make_pair(a.second,a.first));
-	
 	}
 	std::cout<<std::endl<<"mis map: "<<std::endl;
-	print(mis); //int sum miatt nem működik itt
-	
-	
-	
+	print(mis);
+
+
 }
 catch (std::exception& e)
 {
