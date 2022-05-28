@@ -17,18 +17,29 @@ private:
     Out_box xy_out;
     Menu color_menu;
     Button color_button;
+    Button style_button;
+    Menu style_menu;
+    
     
 
     void change(Color c) { lines.set_color(c); }
+    void change_s(Line_style s) {lines.set_style(s);}
     
 
-    void hide_menu() { color_menu.hide(); color_button.show(); }
+    void hide_color() { color_menu.hide(); color_button.show(); }
+    void hide_style() { style_menu.hide(); style_button.show(); }
     
-    void red_pressed() { change(Color::red); hide_menu(); }
-    void blue_pressed() { change(Color::blue); hide_menu(); }
-    void black_pressed() { change(Color::black); hide_menu(); }
+    void red_pressed() { change(Color::red); hide_color(); }
+    void blue_pressed() { change(Color::blue); hide_color(); }
+    void black_pressed() { change(Color::black); hide_color(); }
     void color_pressed() { color_button.hide(); color_menu.show(); }
 
+    void dot_pressed() { change_s(Line_style::dot); hide_style(); }
+    void dash_pressed() { change_s(Line_style::dash); hide_style(); }
+    void solid_pressed() { change_s(Line_style::solid); hide_style(); }
+    void dashdot_pressed() { change_s(Line_style::dashdot); hide_style(); }
+    void style_pressed() { style_button.hide(); style_menu.show(); }
+    
     void next();
     void quit();
 
@@ -57,7 +68,14 @@ Lines_window::Lines_window(Point xy, int w, int h, const string& title)
         [](Address, Address pw) {
             reference_to<Lines_window>(pw).color_pressed();
         }
+    },
+    style_menu{Point{10, 30}, 70, 20, Menu::vertical, "style"},
+    style_button{Point{0, 30}, 80, 20, "style menu",
+        [](Address, Address pw) {
+            reference_to<Lines_window>(pw).style_pressed();
+        }
     }
+    
 {
     attach(next_button);
     attach(quit_button);
@@ -81,9 +99,35 @@ Lines_window::Lines_window(Point xy, int w, int h, const string& title)
             reference_to<Lines_window>(pw).black_pressed();
         }
     });
+    style_menu.attach(new Button{Point{0, 0}, 0, 0, "dot",
+        [](Address, Address pw) {
+            reference_to<Lines_window>(pw).dot_pressed();
+        }
+    });
+    style_menu.attach(new Button{Point{0, 0}, 0, 0, "dash",
+        [](Address, Address pw) {
+            reference_to<Lines_window>(pw).dash_pressed();
+        }
+    });
+    style_menu.attach(new Button{Point{0, 0}, 0, 0, "solid",
+        [](Address, Address pw) {
+            reference_to<Lines_window>(pw).solid_pressed();
+        }
+    });
+    style_menu.attach(new Button{Point{0, 0}, 0, 0, "dashdot",
+        [](Address, Address pw) {
+            reference_to<Lines_window>(pw).dashdot_pressed();
+        }
+    });
     
     attach(color_menu);
+    attach(style_menu);
+    color_menu.hide();
+    style_menu.hide();
+    attach(color_button);
+    attach(style_button);
     attach(lines);
+    
 }
 
 void Lines_window::quit()
